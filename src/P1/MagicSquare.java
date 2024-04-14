@@ -20,14 +20,14 @@ public class MagicSquare {
             } while((mytemp1=yes.readLine()) != null);
             yes.close();
 
-            //定义第一种错误：行列数不相等、并非矩阵
+            //defining first type error: number of rows and columns are not equal, not matrix
             @SuppressWarnings("resource")
             BufferedReader faultone = new BufferedReader(new FileReader(myfile));
             String mytemp2 = null;
             String[] allrows;
             int col;
             while((mytemp2=faultone.readLine()) != null) {
-                allrows = mytemp2.split("\t");   //按照制表符把一行的字符分开装到数组里
+                allrows = mytemp2.split("\t");   //write each row values into an array
                 col = allrows.length;
                 if(col!=row) {
                     System.out.println(fileName + ": Cannot create a matrix because the number of rows and columns are not equal");
@@ -37,7 +37,7 @@ public class MagicSquare {
             allrows = null;
             faultone.close();
 
-            //定义第二种错误：矩阵中某些数字不是正整数
+            //defining second type error: any value containing non-positive integer
             @SuppressWarnings("resource")
             BufferedReader faulttwo = new BufferedReader(new FileReader(myfile));
             String mytemp3 = null;
@@ -57,7 +57,7 @@ public class MagicSquare {
             allrows=null;
             faulttwo.close();
 
-            //定义第三种错误：若出现不是\t作为分隔符抛出异常
+            //defining third type error: if delimiter of each value is not tab, throw exception
             int[][] matrix = new int[row][row];
             i=0;
             try {
@@ -72,7 +72,7 @@ public class MagicSquare {
                     i++;
                 }
                 faultthree.close();
-            } catch(Exception e) /*Integer.valueOf()方法遇到空格则会触发异常，能够筛选非"\t"的情况*/ {
+            } catch(Exception e) /*Integer.valueOf(), this method cannot handle space as delimiter*/ {
                 System.out.println(fileName + ": Tab was not the delimiter");
                 e.printStackTrace();
                 return false;
@@ -110,7 +110,7 @@ public class MagicSquare {
                 diag[0] = diag[0]+matrix[j][j];
                 diag[1] = diag[1]+matrix[j][row-j-1];
             }
-            //判断是否满足MagicSquare的条件
+            //checking whether the matrix is a Magic Square
             temp1 = totalrow[0];temp2=totalcol[0];temp3=diag[0];
             if(temp1!=temp2 || temp1!=temp3 || temp2!=temp3) {
                 return false;
@@ -130,8 +130,7 @@ public class MagicSquare {
                     return false;
                 }
             }
-
-        }catch(Exception e) /*定义第三种错误：若出现不是\t作为分隔符抛出异常*/{
+        }catch(Exception e) /*defining third type error：throw exception when the delimiter is not tab*/ {
             System.out.println(fileName + " Tab was not the delimiter");
             e.printStackTrace();
             return false;
